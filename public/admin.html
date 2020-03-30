@@ -15,8 +15,6 @@
             .module("myApp", []);
 
         app.controller("admincontroller", function admincontroller($scope, $http) {
-            $scope.message = "I am In Controller";
-            $scope.usersList;
             $scope.temp = [];
 
             var init = function () {
@@ -90,7 +88,7 @@
         <p id="temp"></p>
     </div>
     <br>
-    <div style="text-align: center;"><button class="btn btn-default btn-sm">Log Out</button></div>
+    <div style = "text-align: center;"><a href ="index.html"><button class="btn btn-default btn-sm">Log Out</button></a></div>
     </div>
 </body>
 

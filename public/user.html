@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Admin Dashboard</title>
+    <title>User Dashboard</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -15,12 +15,10 @@
             .module("myApp", []);
 
         app.controller("admincontroller", function admincontroller($scope, $http) {
-            $scope.message = "I am In Controller";
-            $scope.usersList;
             $scope.temp = [];
-
-            var init = function () {
-                $scope.usersList = $http.get("/api/listusers").then(function (response) {
+            var id = sessionStorage.getItem("user_id");
+            var init = function (id) {
+                $scope.usersList = $http.get("/api/listcontacts/" + id).then(function (response) {
                     for (var i = 0; i < response.data.length; i++) {
                         console.log(response.data[i])
                         $scope.temp.push(response.data[i]);
@@ -28,69 +26,55 @@
                     }
                 });
             };
-            init();
-            $scope.deleteuser = function (u) {
+            init(id);
+            $scope.deletecontact = function (u) {
                 console.log(u);
-                $scope.usersList = $http.delete("/api/user/" + u._id).then(function (response) {
+                $scope.usersList = $http.delete("/api/deletecontact/" + u._id).then(function (response) {
                     console.log(response.data);
                     if (response.data.deletedCount == 1) {
-                        alert("Deleted " + u.username + " Successfully");
+                        alert("Deleted " + u.first_name + " Successfully");
                         window.location.reload(true);
                     }
                 });
             };
 
-            $scope.updateuser = function (u) {
+            $scope.updatecontact = function (u) {
                 console.log(u);
-                var conf = confirm("Do you want change role?");
-                if(conf){
-                    if(u.role == "ADMIN"){
-                        u.role = "USER"
-                    }else{
-                        u.role =="ADMIN";
-                    }
-                $scope.usersList = $http.post("/api/updateuser/" , u).then(function (response) {
-                    console.log(response.data);
-                    if (response.data.nModified == 1) {
-                        alert("Updated role for " + u.username + " Successfully");
-                        window.location.reload(true);
-                    }
-                });
+                var contact_id = sessionStorage.setItem("contact_id", u._id);
+                window.location = "updatecontact.html";
+                
             }
-            else{
-                window.location.reload(true);
-            }
-
-            };
         });
     </script>
 </head>
 
 <body ng-app="myApp">
     <div ng-controller="admincontroller" style="text-align: center;" class="login-form">
-        <h1>ADMIN DASHBOARD</h1>
+        <h1>USER DASHBOARD</h1>
         <table>
             <tr>
-                <th>Username</th>
-                <th>Role</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone</th>
                 <th>Manage</th>
             </tr>
             <tr ng-repeat="x in temp">
-                <td>{{x.username}}</td>
-                <td> {{x.role}} </td>
+                <td>{{x.first_name}}</td>
+                <td>{{x.last_name}}</td>
+                <td> {{x.phone}} </td>
                 <td>
                     <div>
-                        <button ng-click="updateuser(x)">Update</button>
-                        <button ng-click="deleteuser(x)">Delete</button>
+                        <button ng-click = "updatecontact(x)">Update</button>
+                        <button ng-click="deletecontact(x)">Delete</button>
                     </div>
                 </td>
             </tr>
         </table>
-        <a href="admincreate.html"><button>Create a New User</button></a>
+        <a href="contactcreate.html"><button>Create a New Contact</button></a>
         <p id="temp"></p>
     </div>
     <br>
-    <div style="text-align: center;"><button class="btn btn-default btn-sm">Log Out</button></div>
+    <div style = "text-align: center;"><a href ="index.html"><button class="btn btn-default btn-sm">Log Out</button></a></div>
     </div>
 </body>
 

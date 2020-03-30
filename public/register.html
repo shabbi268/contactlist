@@ -21,7 +21,8 @@
                     console.log(response.data);
                     if (response.data.message == "Successfully added the User") {
                         alert("Created " + u.username + " Successfully");
-                        window.location = "user.html";
+                        $scope.user = response.data;
+                        window.location = "index.html";
                     }
                     else {
                         alert("Failed to create  " + u.username);

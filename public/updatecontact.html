@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Update Contact</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+    <script>
+        var app = angular
+            .module("myApp", []);
+
+        app.controller("updateContactController", function updateContactController($scope, $http) {
+            var id = sessionStorage.getItem("contact_id");
+            var init = function (id) {
+                $scope.usersList = $http.get("/api/getcontact/" + id).then(function (response) {
+                    $scope.contact = response.data[0];
+                });
+            };
+            init(id);
+
+            $scope.updatecontact = function (u) {
+                u._id = sessionStorage.getItem("contact_id");
+                console.log(u);
+                $scope.usersList = $http.post("/api/updatecontact" , u).then(function (response) {
+                    console.log(response.data);
+                    if (response.data.nModified == 1) {
+                        alert("Updated contact for " + u.first_name + " Successfully");
+                        window.location = "user.html";
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="updateContactController" style="text-align: center;" class="login-form">
+        <form method="POST">
+            <h2 class="text-center">Update Contact</h2>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="FirstName" required="required"
+                    ng-model="contact.first_name" value="contact.first_name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="LastName" required="required"
+                    ng-model="contact.last_name" value="contact.last_name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Phone" required="required"
+                    ng-model="contact.phone" value="contact.phone">
+            </div>
+            <div class="form-group">
+                <button type="submit" value="submit" name="submit" class="btn btn-primary btn-block"
+                    ng-click=updatecontact(contact)>Update Contact</button>
+            </div>
+        </form>
+    </div>
+    <br>
+    <div style = "text-align: center;"><a href ="index.html"><button class="btn btn-default btn-sm">Log Out</button></a></div>
+    </div>
+</body>
+
+</html>

@@ -14,10 +14,8 @@
 			.module("myApp",[]);
 			
 app.controller("myController", function myController($scope,$http) {
-    $scope.message = "I am In Controller";
-    
     $scope.login = function(user) {
-        const dbuser = $http.get("/api/login/" + user.username).then(function(response){
+        const dbuser = $http.post("/api/login/", user).then(function(response){
             // console.log(response.data[0].role);
             if(response.data.length > 0){
                 for(var i = 0 ; i<= response.data.length; i++ ){
@@ -27,7 +25,8 @@ app.controller("myController", function myController($scope,$http) {
                         break;
                     }
                     else{
-                       window.location = "index.html";
+                        sessionStorage.setItem("user_id", response.data[i]._id);
+                       window.location = "user.html";
                        break;
                      }
                 }
@@ -39,8 +38,7 @@ app.controller("myController", function myController($scope,$http) {
 </head>
 <body ng-app = "myApp">
   <div ng-controller = "myController" style = "text-align: center;" class="login-form" >
-    {{ user }}
-    <form method = "GET">
+    <form method = "POST">
         <h2 class="text-center">Log in</h2>
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Username" required="required" type="text" ng-model = "user.username">
