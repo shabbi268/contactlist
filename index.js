@@ -22,7 +22,7 @@ mongoose.connection.on('error', (err)=>{
 const route = require(`./routes/route`);
 
 //port number
-const port = 3000;
+const port = 3005;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
