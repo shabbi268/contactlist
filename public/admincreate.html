@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Create User</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+    <script>
+        var app = angular
+            .module("myApp", []);
+
+        app.controller("createUserController", function createUserController($scope, $http) {
+            $scope.message = "I am In Controller";
+
+            $scope.create = function (u) {
+                const dbuser = $http.post("/api/signup/", u).then(function (response) {
+                    console.log(response.data);
+                    if (response.data.message == "Successfully added the User") {
+                        alert("Created " + u.username + " Successfully");
+                        window.location = "admin.html";
+                    }
+                    else {
+                        alert("Failed to create  " + u.username);
+                        window.location.reload(true);
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="createUserController" style="text-align: center;" class="login-form">
+        {{ user }}
+        <form method="POST">
+            <h2 class="text-center">Create User</h2>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Username" required="required" type="text"
+                    ng-model="user.username">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" required="required" type="password"
+                    ng-model="user.password">
+            </div>
+            <div class="form-group">
+                <p>Select a Role:</p>
+                <select class="form-control" required="required" ng-model="user.role">
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="USER" >USER</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" value="submit" name="submit" class="btn btn-primary btn-block"
+                    ng-click=create(user)>Create User</button>
+            </div>
+        </form>
+    </div>
+    <br>
+    <div style="text-align: center;"><button class="btn btn-default btn-sm">Log Out</button></div>
+    </div>
+</body>
+
+</html>

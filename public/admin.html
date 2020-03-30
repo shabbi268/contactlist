@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+    <script>
+        var app = angular
+            .module("myApp", []);
+
+        app.controller("admincontroller", function admincontroller($scope, $http) {
+            $scope.message = "I am In Controller";
+            $scope.usersList;
+            $scope.temp = [];
+
+            var init = function () {
+                $scope.usersList = $http.get("/api/listusers").then(function (response) {
+                    for (var i = 0; i < response.data.length; i++) {
+                        console.log(response.data[i])
+                        $scope.temp.push(response.data[i]);
+
+                    }
+                });
+            };
+            init();
+            $scope.deleteuser = function (u) {
+                console.log(u);
+                $scope.usersList = $http.delete("/api/user/" + u._id).then(function (response) {
+                    console.log(response.data);
+                    if (response.data.deletedCount == 1) {
+                        alert("Deleted " + u.username + " Successfully");
+                        window.location.reload(true);
+                    }
+                });
+            };
+
+            $scope.updateuser = function (u) {
+                console.log(u);
+                var conf = confirm("Do you want change role?");
+                if(conf){
+                    if(u.role == "ADMIN"){
+                        u.role = "USER"
+                    }else{
+                        u.role =="ADMIN";
+                    }
+                $scope.usersList = $http.post("/api/updateuser/" , u).then(function (response) {
+                    console.log(response.data);
+                    if (response.data.nModified == 1) {
+                        alert("Updated role for " + u.username + " Successfully");
+                        window.location.reload(true);
+                    }
+                });
+            }
+            else{
+                window.location.reload(true);
+            }
+
+            };
+        });
+    </script>
+</head>
+
+<body ng-app="myApp">
+    <div ng-controller="admincontroller" style="text-align: center;" class="login-form">
+        <h1>ADMIN DASHBOARD</h1>
+        <table>
+            <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Manage</th>
+            </tr>
+            <tr ng-repeat="x in temp">
+                <td>{{x.username}}</td>
+                <td> {{x.role}} </td>
+                <td>
+                    <div>
+                        <button ng-click="updateuser(x)">Update</button>
+                        <button ng-click="deleteuser(x)">Delete</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <a href="admincreate.html"><button>Create a New User</button></a>
+        <p id="temp"></p>
+    </div>
+    <br>
+    <div style="text-align: center;"><button class="btn btn-default btn-sm">Log Out</button></div>
+    </div>
+</body>
+
+</html>
