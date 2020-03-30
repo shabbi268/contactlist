@@ -1,58 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <title>Login Form</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
-<script>
-    var app = angular
-			.module("myApp",[]);
-			
-app.controller("myController", function myController($scope,$http) {
-    $scope.login = function(user) {
-        const dbuser = $http.post("/api/login/", user).then(function(response){
-            // console.log(response.data[0].role);
-            if(response.data.length > 0){
-                for(var i = 0 ; i<= response.data.length; i++ ){
-                    var role = response.data[i].role;
-                    if(role == "ADMIN"){
-                        window.location = "admin.html";
-                        break;
+    <title>Login Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
+    <link href="style.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+    <script>
+        var app = angular
+            .module("myApp", []);
+
+        app.controller("myController", function myController($scope, $http) {
+            $scope.login = function (user) {
+                const dbuser = $http.post("/api/login/", user).then(function (response) {
+                    // console.log(response.data[0].role);
+                    if (response.data.length > 0) {
+                        for (var i = 0; i <= response.data.length; i++) {
+                            var role = response.data[i].role;
+                            if (role == "ADMIN") {
+                                window.location = "admin.html";
+                                break;
+                            }
+                            else {
+                                sessionStorage.setItem("user_id", response.data[i]._id);
+                                window.location = "user.html";
+                                break;
+                            }
+                        }
                     }
-                    else{
-                        sessionStorage.setItem("user_id", response.data[i]._id);
-                       window.location = "user.html";
-                       break;
-                     }
-                }
+                });
             }
         });
-    }
-});
-</script>
+    </script>
 </head>
-<body ng-app = "myApp">
-  <div ng-controller = "myController" style = "text-align: center;" class="login-form" >
-    <form method = "POST">
-        <h2 class="text-center">Log in</h2>
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Username" required="required" type="text" ng-model = "user.username">
+
+<body ng-app="myApp">
+    <div ng-controller="myController" style="text-align: center;" class="login-form">
+        <div class="topnav" ng-init="load()">
+            <a class="active" href="index.html">Home</a>
+            <a href="register.html">Sign Up</a>
         </div>
-        <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" required="required" type="password" ng-model = "user.password">
+        <div class = "form">
+            <form method="POST">
+                <h2 class="login">Log in</h2><br>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" required="required" type="text"
+                        ng-model="user.username">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" required="required" type="password"
+                        ng-model="user.password">
+                </div>
+                <div class="form-group">
+                    <button type="submit" value="submit" name="submit" class="btn btn-primary btn-block"
+                        ng-click=login(user)>Log in</button>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <button type="submit" value="submit" name="submit" class="btn btn-primary btn-block" ng-click = login(user)>Log in</button>
-        </div>
-    </form>
-  </div>
-  <br>
-  <div style = "text-align: center;"><a href ="register.html"><button class="btn btn-default btn-sm">Sign Up</button></a></div>
-</div>
+    </div>
+    <br>
+    </div>
+    </div>
 </body>
+
 </html>

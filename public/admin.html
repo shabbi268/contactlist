@@ -5,6 +5,8 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
+    <link href="style.css" rel="stylesheet"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -66,29 +68,33 @@
 
 <body ng-app="myApp">
     <div ng-controller="admincontroller" style="text-align: center;" class="login-form">
-        <h1>ADMIN DASHBOARD</h1>
-        <table>
-            <tr>
-                <th>Username</th>
-                <th>Role</th>
-                <th>Manage</th>
-            </tr>
-            <tr ng-repeat="x in temp">
-                <td>{{x.username}}</td>
-                <td> {{x.role}} </td>
-                <td>
-                    <div>
-                        <button ng-click="updateuser(x)">Update</button>
-                        <button ng-click="deleteuser(x)">Delete</button>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <a href="admincreate.html"><button>Create a New User</button></a>
-        <p id="temp"></p>
+        <div class="topnav" ng-init="load()">
+            <a class="active" href="index.html">Home</a>
+            <a href="admincreate.html">Create a New User</a>
+            <a href ="index.html">Log Out</a>
+        </div>
+        <h1 class = "pageheader">DASHBOARD</h1>
+        <div id = "table">
+            <table style="text-align: center;" class = "table">
+                <tr>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Manage</th>
+                </tr>
+                <tr ng-repeat="x in temp">
+                    <td>{{x.username}}</td>
+                    <td> {{x.role}} </td>
+                    <td>
+                        <div>
+                            <button ng-click="updateuser(x)">Update</button>
+                            <button ng-click="deleteuser(x)">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
     <br>
-    <div style = "text-align: center;"><a href ="index.html"><button class="btn btn-default btn-sm">Log Out</button></a></div>
     </div>
 </body>
 

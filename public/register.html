@@ -5,6 +5,8 @@
     <title>Registration</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
+    <link href="style.css" rel="stylesheet"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -36,21 +38,27 @@
 
 <body ng-app="myApp">
     <div ng-controller="registrationController" style="text-align: center;" class="login-form">
-        <form method="POST">
-            <h2 class="text-center">Registration</h2>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Username" required="required" type="text"
-                    ng-model="user.username">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" required="required" type="password"
-                    ng-model="user.password">
-            </div>
-            <div class="form-group">
-                <button type="submit" value="submit" name="submit" class="btn btn-primary btn-block"
-                    ng-click=create(user)>Sign Up</button>
-            </div>
-        </form>
+        <div class="topnav" ng-init="load()">
+            <a class="active" href="index.html">Home</a>
+            <a href="register.html">Sign Up</a>
+        </div>
+        <div class = "form">
+            <form method="POST" >
+                <h2 class="text-center">Registration</h2>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" required="required" type="text"
+                        ng-model="user.username">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" required="required" type="password"
+                        ng-model="user.password">
+                </div>
+                <div class="form-group">
+                    <button type="submit" value="submit" name="submit" class="btn btn-primary btn-block"
+                        ng-click=create(user)>Sign Up</button>
+                </div>
+            </form>
+        </div>
     </div>
     <br>
     </div>
