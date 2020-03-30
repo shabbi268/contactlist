@@ -25,6 +25,10 @@
   color: white;
 }
 
+.topnav-right {
+    float: right;
+  }
+
 /*form*/
 .form {
   font: 95% Arial, Helvetica, sans-serif;

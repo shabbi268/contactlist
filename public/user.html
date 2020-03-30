@@ -5,6 +5,8 @@
     <title>User Dashboard</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans">
+    <link href="style.css" rel="stylesheet"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -50,31 +52,36 @@
 
 <body ng-app="myApp">
     <div ng-controller="admincontroller" style="text-align: center;" class="login-form">
-        <h1>USER DASHBOARD</h1>
-        <table>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Phone</th>
-                <th>Manage</th>
-            </tr>
-            <tr ng-repeat="x in temp">
-                <td>{{x.first_name}}</td>
-                <td>{{x.last_name}}</td>
-                <td> {{x.phone}} </td>
-                <td>
-                    <div>
-                        <button ng-click = "updatecontact(x)">Update</button>
-                        <button ng-click="deletecontact(x)">Delete</button>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <a href="contactcreate.html"><button>Create a New Contact</button></a>
+        <div class="topnav" ng-init="load()">
+            <a class = "active" href="contactcreate.html">Create a New Contact</a>
+            <a href ="index.html">Log Out</a>
+        </div>
+        <h1 class = "pageheader">DASHBOARD</h1>
+        <div id = "table">
+            <table style="text-align: center;" class = "table">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone</th>
+                    <th>Manage</th>
+                </tr>
+                <tr ng-repeat="x in temp">
+                    <td>{{x.first_name}}</td>
+                    <td>{{x.last_name}}</td>
+                    <td> {{x.phone}} </td>
+                    <td>
+                        <div>
+                            <button ng-click = "updatecontact(x)">Update</button>
+                            <button ng-click="deletecontact(x)">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
         <p id="temp"></p>
     </div>
     <br>
-    <div style = "text-align: center;"><a href ="index.html"><button class="btn btn-default btn-sm">Log Out</button></a></div>
     </div>
 </body>
 
