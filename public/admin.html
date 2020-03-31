@@ -22,7 +22,6 @@
             var init = function () {
                 $scope.usersList = $http.get("/api/listusers").then(function (response) {
                     for (var i = 0; i < response.data.length; i++) {
-                        console.log(response.data[i])
                         $scope.temp.push(response.data[i]);
 
                     }
@@ -30,9 +29,7 @@
             };
             init();
             $scope.deleteuser = function (u) {
-                console.log(u);
                 $scope.usersList = $http.delete("/api/user/" + u._id).then(function (response) {
-                    console.log(response.data);
                     if (response.data.deletedCount == 1) {
                         alert("Deleted " + u.username + " Successfully");
                         window.location.reload(true);
@@ -41,7 +38,6 @@
             };
 
             $scope.updateuser = function (u) {
-                console.log(u);
                 var conf = confirm("Do you want change role?");
                 if(conf){
                     if(u.role == "ADMIN"){
@@ -50,7 +46,6 @@
                         u.role =="ADMIN";
                     }
                 $scope.usersList = $http.post("/api/updateuser/" , u).then(function (response) {
-                    console.log(response.data);
                     if (response.data.nModified == 1) {
                         alert("Updated role for " + u.username + " Successfully");
                         window.location.reload(true);

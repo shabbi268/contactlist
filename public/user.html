@@ -22,7 +22,6 @@
             var init = function (id) {
                 $scope.usersList = $http.get("/api/listcontacts/" + id).then(function (response) {
                     for (var i = 0; i < response.data.length; i++) {
-                        console.log(response.data[i])
                         $scope.temp.push(response.data[i]);
 
                     }
@@ -30,9 +29,7 @@
             };
             init(id);
             $scope.deletecontact = function (u) {
-                console.log(u);
                 $scope.usersList = $http.delete("/api/deletecontact/" + u._id).then(function (response) {
-                    console.log(response.data);
                     if (response.data.deletedCount == 1) {
                         alert("Deleted " + u.first_name + " Successfully");
                         window.location.reload(true);
@@ -41,7 +38,6 @@
             };
 
             $scope.updatecontact = function (u) {
-                console.log(u);
                 var contact_id = sessionStorage.setItem("contact_id", u._id);
                 window.location = "updatecontact.html";
                 

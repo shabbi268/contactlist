@@ -88,7 +88,6 @@ router.delete('/deletecontact/:id', (req, res, next) => {
 
 router.delete('/user/:id', (req, res, next) => {
     User.remove({ _id: req.params.id }, (err, result) => {
-        console.log(req.params.id);
         if (err) {
             res.json(err);
         } else {
@@ -99,7 +98,6 @@ router.delete('/user/:id', (req, res, next) => {
 
 router.post('/updateuser', (req, res, next) => {
     User.updateOne({ _id: req.body._id }, { role: req.body.role }, (err, result) => {
-        console.log(req.body._id);
         if (err) {
             res.json(err);
         } else {
@@ -109,7 +107,6 @@ router.post('/updateuser', (req, res, next) => {
 });
 
 router.post('/updatecontact', (req, res, next) => {
-    console.log(req);
     Contact.updateOne({ _id: req.body._id },
         {
             first_name: req.body.first_name,

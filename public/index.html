@@ -19,7 +19,6 @@
         app.controller("myController", function myController($scope, $http) {
             $scope.login = function (user) {
                 const dbuser = $http.post("/api/login/", user).then(function (response) {
-                    // console.log(response.data[0].role);
                     if (response.data.length > 0) {
                         for (var i = 0; i <= response.data.length; i++) {
                             var role = response.data[i].role;

@@ -21,7 +21,6 @@
             $scope.create = function (u) {
                 u.user_id = sessionStorage.getItem("user_id");
                 const dbuser = $http.post("/api/contact", u).then(function (response) {
-                    console.log(response.data);
                     if (response.data.message == "Successfully added the contact") {
                         alert("Created contact with " + u.first_name + " Successfully");
                         window.location = "user.html";

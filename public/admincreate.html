@@ -20,7 +20,6 @@
 
             $scope.create = function (u) {
                 const dbuser = $http.post("/api/signup/", u).then(function (response) {
-                    console.log(response.data);
                     if (response.data.message == "Successfully added the User") {
                         alert("Created " + u.username + " Successfully");
                         window.location = "admin.html";

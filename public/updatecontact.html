@@ -27,9 +27,7 @@
 
             $scope.updatecontact = function (u) {
                 u._id = sessionStorage.getItem("contact_id");
-                console.log(u);
                 $scope.usersList = $http.post("/api/updatecontact" , u).then(function (response) {
-                    console.log(response.data);
                     if (response.data.nModified == 1) {
                         alert("Updated contact for " + u.first_name + " Successfully");
                         window.location = "user.html";
