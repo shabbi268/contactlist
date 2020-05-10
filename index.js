@@ -7,7 +7,8 @@ var path = require('path');
 var app = express();
 
 //connect to mongodb
-mongoose.connect('mongodb://localhost:27017/contactlist');
+// mongoose.connect('mongodb://localhost:27017/contactlist');
+mongoose.connect('mongodb+srv://kesash:4-tT4d.n6P2HxEj@cluster0-fvcwg.mongodb.net/test?retryWrites=true&w=majority');
 
 //on connection and error
 mongoose.connection.on('connected', ()=>{
