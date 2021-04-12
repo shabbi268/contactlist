@@ -8,7 +8,7 @@ var app = express();
 
 //connect to mongodb
 // mongoose.connect('mongodb://localhost:27017/contactlist');
-mongoose.connect('mongodb+srv://kesash:4-tT4d.n6P2HxEj@cluster0-fvcwg.mongodb.net/test?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://kesash:xa16FCgi9ue9rIns@cluster0.4jyzh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
 
 //on connection and error
 mongoose.connection.on('connected', ()=>{
