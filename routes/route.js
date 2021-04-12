@@ -37,7 +37,6 @@ router.post('/signup', (req, res, next) => {
 
     newUser.save((err, User) => {
         if (err) {
-            console.log(`err: `,err)
             res.json({ message: `Failed to add User` });
         }
         else {
