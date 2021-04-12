@@ -8,7 +8,7 @@ var app = express();
 
 //connect to mongodb
 // mongoose.connect('mongodb://localhost:27017/contactlist');
-mongoose.connect('mongodb+srv://kesash:xa16FCgi9ue9rIns@cluster0.4jyzh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&ssl=true');
+mongoose.connect('mongodb+srv://kesash:xa16FCgi9ue9rIns@cluster0.4jyzh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority&ssl=true', {useUnifiedTopology: true});
 
 //on connection and error
 mongoose.connection.on('connected', ()=>{
